@@ -48,7 +48,7 @@ last_checkpoint = get_last_file(models_path)
 dataloader = get_dataloader(config["train"]["data_config"])
 val_dataloader = get_dataloader(config["val"]["data_config"])
 model = MultiPathPP(config["model"])
-model.cuda()
+model.to(torch.device('cpu'))
 optimizer = Adam(model.parameters(), **config["train"]["optimizer"])
 if config["train"]["scheduler"]:
     scheduler = ReduceLROnPlateau(optimizer, patience=20, factor=0.5, verbose=True)
