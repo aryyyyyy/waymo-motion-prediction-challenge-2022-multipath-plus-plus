@@ -119,7 +119,7 @@ class MCGBlock(nn.Module):
             self, scatter_numbers, scatter_idx, s, c=None, aggregate_batch=True, return_s=False):
         if c is None:
             assert self._config["identity_c_mlp"], self._config["identity_c_mlp"]
-            c = torch.ones(s.shape[0], 1, self.n_in, requires_grad=True).cuda()
+            c = torch.ones(s.shape[0], 1, self.n_in, requires_grad=True).to(torch.device('cpu'))
         else:
             assert not self._config["identity_c_mlp"]
         c = self._repeat_tensor(c, scatter_numbers)
