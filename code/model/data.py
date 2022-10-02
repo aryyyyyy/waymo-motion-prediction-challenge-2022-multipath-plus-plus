@@ -97,11 +97,11 @@ def dict_to_cuda(d):
         v = d[k]
         if not isinstance(v, torch.Tensor):
             continue
-        d[k] = d[k].cuda()
+        d[k] = d[k].to(torch.device('cpu'))
 
 class MultiPathPPDataset(Dataset):
     def __init__(self, config):
-        self._data_path = config["data_path"]
+        self._data_path = 'ren'
         self._config = config
         files = os.listdir(self._data_path)
         self._files = [os.path.join(self._data_path, f) for f in files]
