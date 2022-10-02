@@ -24,8 +24,8 @@ class MultiPathPP(nn.Module):
             self._mha_decoder = MHA(config["mha_decoder"])
     
     def forward(self, data, num_steps):
-        target_scatter_numbers = torch.ones(data["batch_size"], dtype=torch.long).cuda()
-        target_scatter_idx = torch.arange(data["batch_size"], dtype=torch.long).cuda()
+        target_scatter_numbers = torch.ones(data["batch_size"], dtype=torch.long).to(torch.device('cpu'))
+        target_scatter_idx = torch.arange(data["batch_size"], dtype=torch.long).to(torch.device('cpu'))
         target_mcg_input_data_linear = self._agent_mcg_linear(data["target/history/mcg_input_data"])
         assert torch.isfinite(target_mcg_input_data_linear).all()
         target_agents_embeddings = self._agent_history_encoder(
